@@ -1,8 +1,13 @@
+"use client";
+
 import Logo from "@/components/ui/Logo";
 import { Icon } from "@/components/icons";
-import { CONTACTO, NAV_LINKS, waLink } from "@/lib/site";
+import { NAV_LINKS, waLink } from "@/lib/site";
+import { useStore } from "@/lib/store";
 
 export default function Footer() {
+  const { contacto: CONTACTO } = useStore();
+
   return (
     <footer className="relative border-t border-white/10 bg-carbon-950">
       <div className="container-px py-14">
@@ -80,11 +85,11 @@ export default function Footer() {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-center sm:flex-row sm:text-left">
           <p className="text-xs text-white/40">
-            © {new Date().getFullYear()} Guerrero Sport. Todos los derechos
-            reservados.
+            © {new Date().getFullYear()} Guerrero Sport · Indumentaria deportiva
+            personalizada. Todos los derechos reservados.
           </p>
           <p className="text-xs text-white/30">
-            Demo visual diseñado por{" "}
+            Sitio web desarrollado para Guerrero Sport por{" "}
             <span className="font-semibold text-white/55">Ever Núñez</span>
           </p>
         </div>

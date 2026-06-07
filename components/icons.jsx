@@ -76,6 +76,99 @@ export function Icon({ name, className = "h-6 w-6" }) {
         stroke="none"
       />
     ),
+    dashboard: (
+      <>
+        <rect x="4" y="4" width="7" height="9" rx="1.5" />
+        <rect x="4" y="16" width="7" height="4" rx="1.5" />
+        <rect x="14" y="4" width="6" height="4" rx="1.5" />
+        <rect x="14" y="11" width="6" height="9" rx="1.5" />
+      </>
+    ),
+    tag: (
+      <>
+        <path d="M4 12V5a1 1 0 011-1h7l8 8-8 8-8-8z" />
+        <circle cx="8.5" cy="8.5" r="1.3" />
+      </>
+    ),
+    image: (
+      <>
+        <rect x="4" y="5" width="16" height="14" rx="2" />
+        <circle cx="9" cy="10" r="1.6" />
+        <path d="M5 17l4.5-4 3 2.5L16 11l3 3.5" />
+      </>
+    ),
+    layout: (
+      <>
+        <rect x="4" y="4" width="16" height="16" rx="2" />
+        <path d="M4 9h16M9 9v11" />
+      </>
+    ),
+    phone: (
+      <path d="M5 4h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5V20a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z" />
+    ),
+    logout: (
+      <>
+        <path d="M14 4h4a1 1 0 011 1v14a1 1 0 01-1 1h-4" />
+        <path d="M10 8l-4 4 4 4M6 12h10" />
+      </>
+    ),
+    plus: <path d="M12 5v14M5 12h14" />,
+    edit: (
+      <>
+        <path d="M4 20h4l10-10-4-4L4 16v4z" />
+        <path d="M13.5 6.5l4 4" />
+      </>
+    ),
+    trash: (
+      <>
+        <path d="M5 7h14M10 7V5a1 1 0 011-1h2a1 1 0 011 1v2" />
+        <path d="M6 7l1 13a1 1 0 001 1h8a1 1 0 001-1l1-13M10 11v6M14 11v6" />
+      </>
+    ),
+    eye: (
+      <>
+        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" />
+        <circle cx="12" cy="12" r="3" />
+      </>
+    ),
+    "eye-off": (
+      <>
+        <path d="M3 3l18 18" />
+        <path d="M10.6 10.6a3 3 0 004.2 4.2" />
+        <path d="M9.9 5.2A9.5 9.5 0 0112 5c6.5 0 10 7 10 7a17 17 0 01-3.2 4M6.2 6.2A17 17 0 002 12s3.5 7 10 7a9.5 9.5 0 003.1-.5" />
+      </>
+    ),
+    x: <path d="M6 6l12 12M18 6L6 18" />,
+    lock: (
+      <>
+        <rect x="5" y="11" width="14" height="9" rx="2" />
+        <path d="M8 11V8a4 4 0 018 0v3" />
+      </>
+    ),
+    user: (
+      <>
+        <circle cx="12" cy="8" r="3.5" />
+        <path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6" />
+      </>
+    ),
+    save: (
+      <>
+        <path d="M5 4h11l3 3v13a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1z" />
+        <path d="M8 4v5h7M8 21v-6h8v6" />
+      </>
+    ),
+    upload: (
+      <>
+        <path d="M12 16V4M8 8l4-4 4 4" />
+        <path d="M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3" />
+      </>
+    ),
+    refresh: (
+      <>
+        <path d="M4 12a8 8 0 0114-5l2 2M20 12a8 8 0 01-14 5l-2-2" />
+        <path d="M18 4v5h-5M6 20v-5h5" />
+      </>
+    ),
   };
 
   return (

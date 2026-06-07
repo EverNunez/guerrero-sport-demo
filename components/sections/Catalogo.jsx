@@ -4,9 +4,13 @@ import { motion } from "framer-motion";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ProductMedia from "@/components/ui/ProductMedia";
 import { Icon } from "@/components/icons";
-import { PRODUCTOS, waLink } from "@/lib/site";
+import { waLink } from "@/lib/site";
+import { useStore } from "@/lib/store";
 
 export default function Catalogo() {
+  const { productos } = useStore();
+  const visibles = productos.filter((p) => p.visible !== false);
+
   return (
     <section id="catalogo" className="relative py-24 sm:py-28">
       {/* Fondo */}
@@ -17,7 +21,7 @@ export default function Catalogo() {
 
       <div className="container-px">
         <SectionHeading
-          eyebrow="Catálogo demo"
+          eyebrow="Catálogo"
           titulo="Diseños que"
           destacado="inspiran"
           descripcion="Ejemplos de lo que podemos crear para tu equipo. Cada prenda se personaliza con tus colores, escudo y nombres."
@@ -30,9 +34,9 @@ export default function Catalogo() {
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07 } } }}
           className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {PRODUCTOS.map((p) => (
+          {visibles.map((p) => (
             <motion.article
-              key={p.nombre}
+              key={p.id || p.nombre}
               variants={{
                 hidden: { opacity: 0, y: 30 },
                 show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
@@ -59,7 +63,14 @@ export default function Catalogo() {
 
               {/* Info */}
               <div className="flex flex-1 flex-col p-6">
-                <h3 className="text-lg font-bold text-white">{p.nombre}</h3>
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="text-lg font-bold text-white">{p.nombre}</h3>
+                  {p.precio ? (
+                    <span className="shrink-0 rounded-lg bg-gold/15 px-2.5 py-1 text-xs font-bold text-gold">
+                      {p.precio}
+                    </span>
+                  ) : null}
+                </div>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-white/55">
                   {p.descripcion}
                 </p>
@@ -76,6 +87,13 @@ export default function Catalogo() {
             </motion.article>
           ))}
         </motion.div>
+
+        {visibles.length === 0 && (
+          <p className="mt-14 text-center text-white/50">
+            Pronto cargaremos nuevos diseños. Escribinos por WhatsApp para ver
+            todo el catálogo.
+          </p>
+        )}
       </div>
     </section>
   );

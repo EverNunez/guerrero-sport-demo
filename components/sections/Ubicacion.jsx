@@ -4,9 +4,11 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import Reveal from "@/components/ui/Reveal";
 import { Icon } from "@/components/icons";
-import { CONTACTO } from "@/lib/site";
+import { useStore } from "@/lib/store";
 
 export default function Ubicacion() {
+  const { contacto: CONTACTO } = useStore();
+
   return (
     <section id="contacto" className="relative py-24 sm:py-28">
       <div className="container-px">

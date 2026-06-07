@@ -1,8 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import Jersey from "@/components/ui/Jersey";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import BrandWatermark from "@/components/ui/BrandWatermark";
 import { Icon } from "@/components/icons";
 
 const stats = [
@@ -15,13 +16,11 @@ export default function Hero() {
   return (
     <section
       id="inicio"
-      className="relative flex min-h-[100svh] items-center overflow-hidden pt-28 pb-16"
+      className="relative flex min-h-[100svh] items-center overflow-hidden pt-28 pb-20"
     >
       {/* ===== Fondo tipo estadio ===== */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        {/* Base */}
+      <div className="pointer-events-none absolute inset-0 -z-20">
         <div className="absolute inset-0 bg-carbon-950" />
-        {/* Spotlight superior */}
         <div className="absolute inset-0 bg-radial-spotlight" />
         {/* Grilla de cancha en perspectiva */}
         <div className="absolute inset-x-0 bottom-0 h-[55%] bg-grid-lines bg-[size:46px_46px] [mask-image:linear-gradient(to_top,black,transparent)] opacity-60" />
@@ -32,9 +31,11 @@ export default function Hero() {
         {/* Haces de luz de reflectores */}
         <div className="absolute left-1/4 top-0 h-[60%] w-40 -translate-x-1/2 rotate-[18deg] bg-gradient-to-b from-white/10 to-transparent blur-2xl" />
         <div className="absolute right-1/4 top-0 h-[60%] w-40 translate-x-1/2 -rotate-[18deg] bg-gradient-to-b from-white/10 to-transparent blur-2xl" />
-        {/* Textura de ruido */}
         <div className="noise absolute inset-0 opacity-[0.05] mix-blend-overlay" />
       </div>
+
+      {/* ===== Marca de agua animada "GUERRERO SPORT" ===== */}
+      <BrandWatermark className="-z-10 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
 
       <div className="container-px grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
         {/* ===== Texto ===== */}
@@ -53,7 +54,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-6 text-4xl font-bold uppercase leading-[0.98] text-white sm:text-5xl md:text-6xl lg:text-[4.2rem]"
+            className="mt-6 text-4xl font-bold uppercase leading-[0.98] text-white sm:text-5xl md:text-6xl lg:text-[4rem]"
           >
             Indumentaria deportiva{" "}
             <span className="relative inline-block">
@@ -62,7 +63,7 @@ export default function Hero() {
               </span>
               <span className="absolute -bottom-1 left-0 h-1 w-full rounded-full bg-gradient-to-r from-spartan to-gold/0" />
             </span>{" "}
-            para equipos campeones
+            para equipos con identidad
           </motion.h1>
 
           <motion.p
@@ -72,7 +73,7 @@ export default function Hero() {
             className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/65 sm:text-lg lg:mx-0"
           >
             Diseñamos y confeccionamos camisetas, uniformes y prendas deportivas
-            con identidad propia para clubes, equipos y empresas.
+            para clubes, equipos, torneos y empresas.
           </motion.p>
 
           <motion.div
@@ -81,7 +82,9 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="mt-9 flex flex-col items-center gap-3 sm:flex-row lg:justify-start"
           >
-            <WhatsAppButton className="w-full sm:w-auto" />
+            <WhatsAppButton className="w-full sm:w-auto">
+              Pedir presupuesto
+            </WhatsAppButton>
             <a href="#catalogo" className="btn-secondary w-full sm:w-auto">
               Ver diseños
               <Icon name="arrow" className="h-4 w-4" />
@@ -108,18 +111,31 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* ===== Camiseta destacada ===== */}
+        {/* ===== Emblema oficial Guerrero Sport ===== */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, rotate: -4 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto w-full max-w-md"
+          className="relative mx-auto w-full max-w-[420px]"
         >
-          {/* Plataforma luminosa */}
-          <div className="absolute left-1/2 top-1/2 h-[120%] w-[120%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-tr from-spartan/20 via-royal/10 to-gold/20 blur-3xl" />
+          {/* Plataforma luminosa giratoria */}
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+            className="absolute left-1/2 top-1/2 h-[115%] w-[115%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[conic-gradient(from_0deg,rgba(226,16,42,0.25),transparent_30%,rgba(30,91,255,0.18)_55%,transparent_75%,rgba(233,185,73,0.22))] blur-2xl"
+          />
+          <div className="absolute left-1/2 top-1/2 h-[90%] w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" />
 
-          <div className="relative animate-float-slow">
-            <Jersey base="royal" numero="10" className="w-full drop-shadow-2xl" />
+          {/* Emblema flotando */}
+          <div className="relative animate-float-slow px-6">
+            <Image
+              src="/marca/casco.png"
+              alt="Emblema oficial Guerrero Sport — casco espartano"
+              width={520}
+              height={538}
+              priority
+              className="h-auto w-full drop-shadow-[0_25px_45px_rgba(226,16,42,0.35)]"
+            />
           </div>
 
           {/* Tarjetas flotantes */}
@@ -127,7 +143,7 @@ export default function Hero() {
             initial={{ opacity: 0, x: -24 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.9, duration: 0.7 }}
-            className="glass absolute -left-2 top-10 rounded-2xl px-4 py-3 sm:-left-6"
+            className="glass absolute -left-2 top-6 rounded-2xl px-4 py-3 sm:-left-4"
           >
             <div className="flex items-center gap-2">
               <span className="grid h-9 w-9 place-items-center rounded-xl bg-spartan/20 text-spartan-400">
@@ -144,7 +160,7 @@ export default function Hero() {
             initial={{ opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 1.05, duration: 0.7 }}
-            className="glass absolute -right-2 bottom-12 rounded-2xl px-4 py-3 sm:-right-6"
+            className="glass absolute -right-2 bottom-8 rounded-2xl px-4 py-3 sm:-right-4"
           >
             <div className="flex items-center gap-2">
               <span className="grid h-9 w-9 place-items-center rounded-xl bg-gold/20 text-gold">

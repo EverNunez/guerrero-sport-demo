@@ -3,9 +3,12 @@
 import { motion } from "framer-motion";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ProductMedia from "@/components/ui/ProductMedia";
-import { GALERIA } from "@/lib/site";
+import { useStore } from "@/lib/store";
 
 export default function Galeria() {
+  const { galeria } = useStore();
+  const visibles = galeria.filter((g) => g.visible !== false);
+
   return (
     <section id="galeria" className="relative py-24 sm:py-28">
       <div className="container-px">
@@ -23,9 +26,9 @@ export default function Galeria() {
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07 } } }}
           className="mt-14 grid auto-rows-[200px] grid-cols-2 gap-4 sm:auto-rows-[230px] lg:grid-cols-4"
         >
-          {GALERIA.map((g) => (
+          {visibles.map((g) => (
             <motion.figure
-              key={g.titulo}
+              key={g.id || g.titulo}
               variants={{
                 hidden: { opacity: 0, scale: 0.94 },
                 show: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },

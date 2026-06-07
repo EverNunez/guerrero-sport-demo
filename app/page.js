@@ -8,7 +8,6 @@ import Galeria from "@/components/sections/Galeria";
 import Equipos from "@/components/sections/Equipos";
 import Ubicacion from "@/components/sections/Ubicacion";
 import CTA from "@/components/sections/CTA";
-import DemoBadge from "@/components/ui/DemoBadge";
 import FloatingWhatsApp from "@/components/ui/FloatingWhatsApp";
 
 export default function Home() {
@@ -26,7 +25,6 @@ export default function Home() {
         <CTA />
       </main>
       <Footer />
-      <DemoBadge />
       <FloatingWhatsApp />
     </>
   );

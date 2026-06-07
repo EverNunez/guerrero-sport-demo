@@ -38,6 +38,10 @@ module.exports = {
         display: ["var(--font-display)", "system-ui", "sans-serif"],
         body: ["var(--font-body)", "system-ui", "sans-serif"],
       },
+      spacing: {
+        4.5: "1.125rem",
+        5.5: "1.375rem",
+      },
       boxShadow: {
         glow: "0 0 40px -8px rgba(226,16,42,0.55)",
         "glow-blue": "0 0 40px -8px rgba(30,91,255,0.55)",
