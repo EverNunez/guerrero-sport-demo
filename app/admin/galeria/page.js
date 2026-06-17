@@ -80,16 +80,15 @@ export default function AdminGaleria() {
             key={g.id}
             className="group relative aspect-square overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-carbon-700/60 to-carbon-900"
           >
-            <div className="absolute inset-0 flex items-center justify-center p-5">
-              <ProductMedia
-                imagen={g.imagen}
-                alt={g.titulo}
-                base={g.base}
-                numero={g.numero}
-                jerseyClassName="h-full w-auto"
-                sizes="(max-width:1024px) 50vw, 25vw"
-              />
-            </div>
+            <ProductMedia
+              imagen={g.imagen}
+              alt={g.titulo}
+              base={g.base}
+              numero={g.numero}
+              jerseyClassName="h-full w-auto"
+              jerseyPadding="p-5"
+              sizes="(max-width:640px) 50vw, 25vw"
+            />
 
             {g.visible === false && (
               <span className="absolute left-2 top-2 rounded-full bg-black/70 px-2 py-0.5 text-[10px] font-semibold text-white/70">

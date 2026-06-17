@@ -2,8 +2,10 @@ import Image from "next/image";
 import Jersey from "@/components/ui/Jersey";
 
 // Muestra una FOTO real si existe `imagen`; si no, cae al mockup SVG (Jersey).
-// - Rutas normales (/catalogo/foto.jpg) usan next/image optimizado.
-// - Imágenes subidas desde el panel (data URLs) usan <img> directo.
+// Se posiciona de forma absoluta dentro del contenedor relativo padre:
+// - Foto: cubre todo el espacio (borde a borde, object-cover).
+// - Mockup: centrado con margen.
+// Rutas normales (/images/...) usan next/image; imágenes subidas (data URL) usan <img>.
 export default function ProductMedia({
   imagen,
   alt,
@@ -11,6 +13,7 @@ export default function ProductMedia({
   numero = "10",
   sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
   jerseyClassName = "",
+  jerseyPadding = "p-6",
 }) {
   if (imagen) {
     const esDataUrl = imagen.startsWith("data:");
@@ -20,7 +23,7 @@ export default function ProductMedia({
         <img
           src={imagen}
           alt={alt}
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
       );
     }
@@ -30,9 +33,13 @@ export default function ProductMedia({
         alt={alt}
         fill
         sizes={sizes}
-        className="object-cover transition-transform duration-500 group-hover:scale-105"
+        className="object-cover transition-transform duration-700 group-hover:scale-105"
       />
     );
   }
-  return <Jersey base={base} numero={numero} className={jerseyClassName} />;
+  return (
+    <div className={`absolute inset-0 flex items-center justify-center ${jerseyPadding}`}>
+      <Jersey base={base} numero={numero} className={jerseyClassName} />
+    </div>
+  );
 }

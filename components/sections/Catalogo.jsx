@@ -44,18 +44,19 @@ export default function Catalogo() {
               className="group relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-carbon-800/50 transition-all duration-500 hover:-translate-y-2 hover:border-white/20 hover:shadow-card"
             >
               {/* Imagen / mockup */}
-              <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-b from-carbon-700/60 to-carbon-900">
+              <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-b from-carbon-700/60 to-carbon-900">
                 <div className="absolute inset-0 bg-grid-lines bg-[size:30px_30px] opacity-30" />
                 <div className="absolute left-1/2 top-1/2 h-44 w-44 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-2xl transition-all duration-500 group-hover:bg-white/10" />
-                <div className="absolute inset-0 flex items-center justify-center p-6">
-                  <ProductMedia
-                    imagen={p.imagen}
-                    alt={p.nombre}
-                    base={p.base}
-                    numero={p.numero}
-                    jerseyClassName="h-full w-auto drop-shadow-2xl transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-2"
-                  />
-                </div>
+                <ProductMedia
+                  imagen={p.imagen}
+                  alt={p.nombre}
+                  base={p.base}
+                  numero={p.numero}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  jerseyClassName="h-full w-auto drop-shadow-2xl transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-2"
+                />
+                {/* Degradado inferior para legibilidad del badge */}
+                <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-carbon-950/70 to-transparent" />
                 <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-carbon-950/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white/80 backdrop-blur">
                   {p.etiqueta}
                 </span>

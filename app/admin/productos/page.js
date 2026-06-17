@@ -107,6 +107,7 @@ export default function AdminProductos() {
                     base={p.base}
                     numero={p.numero}
                     jerseyClassName="h-12 w-auto"
+                    jerseyPadding="p-1"
                     sizes="56px"
                   />
                 </div>
