@@ -3,23 +3,19 @@ import sharp from "sharp";
 import fs from "node:fs";
 import path from "node:path";
 
-const SRC = "C:/Users/Manda/OneDrive/Documentos/proyectos/imagenes_guerrero_sport";
+const SRC = "C:/Users/Manda/OneDrive/Documentos/proyectos/imagenes guerrero sport";
 const OUT = "C:/Users/Manda/OneDrive/Documentos/proyectos/guerrero-sport-demo/scripts/_review";
 fs.mkdirSync(OUT, { recursive: true });
 
 const files = fs.readdirSync(SRC).filter((f) => /\.jpe?g$/i.test(f)).sort();
 
-const COLS = 4;
-const ROWS = 3;
+const COLS = 5;
+const ROWS = 4;
 const PER = COLS * ROWS;
-const CW = 380; // cell width
-const CH = 320; // cell height
-const TW = 360; // thumb width
-const TH = 280; // thumb height
-
-function esc(s) {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
+const CW = 320; // cell width
+const CH = 300; // cell height
+const TW = 300; // thumb width
+const TH = 250; // thumb height
 
 const sheets = Math.ceil(files.length / PER);
 console.log(`${files.length} fotos · ${sheets} hojas`);
@@ -40,7 +36,7 @@ for (let s = 0; s < sheets; s++) {
     const thumb = await sharp(path.join(SRC, f))
       .rotate()
       .resize(TW, TH, { fit: "inside" })
-      .jpeg({ quality: 70 })
+      .jpeg({ quality: 68 })
       .toBuffer();
     const meta = await sharp(thumb).metadata();
     composites.push({
@@ -49,20 +45,20 @@ for (let s = 0; s < sheets; s++) {
       top: y + 6,
     });
 
-    const label = `${esc(f)}`;
+    const label = f.replace(/\.JPG$/i, "");
     const svg = Buffer.from(
-      `<svg width="${CW}" height="34"><rect width="100%" height="100%" fill="#101014"/><text x="${CW / 2}" y="22" font-family="Arial" font-size="18" fill="#ffd34d" text-anchor="middle">${label}</text></svg>`
+      `<svg width="${CW}" height="30"><rect width="100%" height="100%" fill="#101014"/><text x="${CW / 2}" y="20" font-family="Arial" font-size="16" fill="#ffd34d" text-anchor="middle">${label}</text></svg>`
     );
-    composites.push({ input: svg, left: x, top: y + CH - 34 });
+    composites.push({ input: svg, left: x, top: y + CH - 30 });
   }
 
-  const out = path.join(OUT, `hoja-${s + 1}.jpg`);
+  const out = path.join(OUT, `hoja-${String(s + 1).padStart(2, "0")}.jpg`);
   await sharp({
     create: { width: W, height: H, channels: 3, background: "#050507" },
   })
     .composite(composites)
-    .jpeg({ quality: 72 })
+    .jpeg({ quality: 70 })
     .toFile(out);
-  console.log("OK", out);
+  console.log("OK", path.basename(out));
 }
 console.log("LISTO");

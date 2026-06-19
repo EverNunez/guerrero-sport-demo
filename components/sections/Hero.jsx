@@ -124,18 +124,25 @@ export default function Hero() {
             transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
             className="absolute left-1/2 top-1/2 h-[115%] w-[115%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[conic-gradient(from_0deg,rgba(226,16,42,0.25),transparent_30%,rgba(30,91,255,0.18)_55%,transparent_75%,rgba(233,185,73,0.22))] blur-2xl"
           />
-          <div className="absolute left-1/2 top-1/2 h-[90%] w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" />
-
-          {/* Emblema flotando */}
-          <div className="relative animate-float-slow px-6">
-            <Image
-              src="/marca/casco.png"
-              alt="Emblema oficial Guerrero Sport — casco espartano"
-              width={520}
-              height={538}
-              priority
-              className="h-auto w-full drop-shadow-[0_25px_45px_rgba(226,16,42,0.35)]"
-            />
+          {/* Foto real destacada (edición Espartano) en marco premium */}
+          <div className="relative animate-float-slow">
+            <div className="relative mx-auto aspect-[4/5] w-full max-w-[360px] overflow-hidden rounded-[2rem] border border-white/15 shadow-card">
+              <Image
+                src="/images/guerrero-sport/hero/espartano.webp"
+                alt="Camiseta sublimada edición Espartano de Guerrero Sport"
+                fill
+                sizes="(max-width: 1024px) 80vw, 420px"
+                priority
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-carbon-950/75 via-transparent to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-5">
+                <span className="eyebrow !border-white/20 !bg-black/30">
+                  <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+                  Edición Espartano
+                </span>
+              </div>
+            </div>
           </div>
 
           {/* Tarjetas flotantes */}

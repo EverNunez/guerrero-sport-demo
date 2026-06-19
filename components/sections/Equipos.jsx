@@ -78,7 +78,7 @@ export default function Equipos() {
             <Reveal delay={0.1} className="order-first lg:order-last">
               <div className="group relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl border border-white/10 shadow-card">
                 <Image
-                  src="/images/guerrero-sport/galeria/galeria-franco-conjunto.webp"
+                  src="/images/guerrero-sport/destacados/conjunto-guerrero.webp"
                   alt="Uniforme completo personalizado para club"
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"
