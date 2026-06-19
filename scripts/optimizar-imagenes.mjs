@@ -18,9 +18,10 @@ for (const d of [HERO, DEST, CAT, GAL]) {
   fs.mkdirSync(d, { recursive: true });
 }
 
-// Hero + destacado (recorte 4:5 grande, alta calidad).
+// Hero (camisetas reales protagonistas) + destacado (recorte 4:5, alta calidad).
 const grandes = [
-  ["DSC_2820.JPG", "espartano", HERO, 1040, 1300],
+  ["DSC_2924.JPG", "camiseta-principal", HERO, 920, 1150],
+  ["DSC_2658.JPG", "camiseta-secundaria", HERO, 760, 950],
   ["DSC_2674.JPG", "conjunto-guerrero", DEST, 1000, 1250],
 ];
 

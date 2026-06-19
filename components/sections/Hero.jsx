@@ -40,10 +40,27 @@ export default function Hero() {
       <div className="container-px grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
         {/* ===== Texto ===== */}
         <div className="text-center lg:text-left">
-          <motion.span
+          {/* Logo oficial Guerrero Sport */}
+          <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            className="mb-6 flex justify-center lg:justify-start"
+          >
+            <Image
+              src="/marca/logo-guerrero-white.png"
+              alt="Guerrero Sport"
+              width={300}
+              height={102}
+              priority
+              className="h-12 w-auto drop-shadow-[0_4px_16px_rgba(226,16,42,0.45)] sm:h-14"
+            />
+          </motion.div>
+
+          <motion.span
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.08 }}
             className="eyebrow"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-gold" />
@@ -111,7 +128,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* ===== Emblema oficial Guerrero Sport ===== */}
+        {/* ===== Camisetas reales destacadas ===== */}
         <motion.div
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -124,24 +141,35 @@ export default function Hero() {
             transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
             className="absolute left-1/2 top-1/2 h-[115%] w-[115%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[conic-gradient(from_0deg,rgba(226,16,42,0.25),transparent_30%,rgba(30,91,255,0.18)_55%,transparent_75%,rgba(233,185,73,0.22))] blur-2xl"
           />
-          {/* Foto real destacada (edición Espartano) en marco premium */}
-          <div className="relative animate-float-slow">
-            <div className="relative mx-auto aspect-[4/5] w-full max-w-[360px] overflow-hidden rounded-[2rem] border border-white/15 shadow-card">
+          {/* Camisetas reales protagonistas (collage) */}
+          <div className="relative animate-float-slow pb-4 pl-4">
+            {/* Camiseta principal */}
+            <div className="relative ml-auto aspect-[4/5] w-[80%] overflow-hidden rounded-[2rem] border border-white/15 shadow-card">
               <Image
-                src="/images/guerrero-sport/hero/espartano.webp"
-                alt="Camiseta sublimada edición Espartano de Guerrero Sport"
+                src="/images/guerrero-sport/hero/camiseta-principal.webp"
+                alt="Camiseta deportiva personalizada Guerrero Sport"
                 fill
-                sizes="(max-width: 1024px) 80vw, 420px"
+                sizes="(max-width: 1024px) 70vw, 360px"
                 priority
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-carbon-950/75 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-carbon-950/70 via-transparent to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-5">
                 <span className="eyebrow !border-white/20 !bg-black/30">
                   <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-                  Edición Espartano
+                  Diseño exclusivo
                 </span>
               </div>
+            </div>
+            {/* Camiseta secundaria superpuesta */}
+            <div className="absolute bottom-0 left-0 aspect-[4/5] w-[44%] overflow-hidden rounded-2xl border border-white/15 shadow-card ring-4 ring-carbon-950">
+              <Image
+                src="/images/guerrero-sport/hero/camiseta-secundaria.webp"
+                alt="Camiseta deportiva Paraguay personalizada"
+                fill
+                sizes="(max-width: 1024px) 40vw, 180px"
+                className="object-cover"
+              />
             </div>
           </div>
 
