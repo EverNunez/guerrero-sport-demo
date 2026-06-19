@@ -4,7 +4,26 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import BrandWatermark from "@/components/ui/BrandWatermark";
+import HeroSlider from "@/components/ui/HeroSlider";
 import { Icon } from "@/components/icons";
+
+const HERO_SLIDES = [
+  {
+    src: "/images/guerrero-sport/hero/slider-1-conjunto-rojo-negro.webp",
+    alt: "Conjunto deportivo rojo y negro de Guerrero Sport",
+    etiqueta: "Diseño exclusivo",
+  },
+  {
+    src: "/images/guerrero-sport/hero/slider-2-paraguay.webp",
+    alt: "Camiseta Paraguay personalizada de Guerrero Sport",
+    etiqueta: "Camisetas de equipo",
+  },
+  {
+    src: "/images/guerrero-sport/hero/slider-3-sublimado-neon.webp",
+    alt: "Camiseta sublimada full color de Guerrero Sport",
+    etiqueta: "Sublimado premium",
+  },
+];
 
 const stats = [
   { valor: "+1000", label: "Seguidores" },
@@ -141,36 +160,9 @@ export default function Hero() {
             transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
             className="absolute left-1/2 top-1/2 h-[115%] w-[115%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[conic-gradient(from_0deg,rgba(226,16,42,0.25),transparent_30%,rgba(30,91,255,0.18)_55%,transparent_75%,rgba(233,185,73,0.22))] blur-2xl"
           />
-          {/* Camisetas reales protagonistas (collage) */}
-          <div className="relative animate-float-slow pb-4 pl-4">
-            {/* Camiseta principal */}
-            <div className="relative ml-auto aspect-[4/5] w-[80%] overflow-hidden rounded-[2rem] border border-white/15 shadow-card">
-              <Image
-                src="/images/guerrero-sport/hero/camiseta-principal.webp"
-                alt="Camiseta deportiva personalizada Guerrero Sport"
-                fill
-                sizes="(max-width: 1024px) 70vw, 360px"
-                priority
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-carbon-950/70 via-transparent to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-5">
-                <span className="eyebrow !border-white/20 !bg-black/30">
-                  <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-                  Diseño exclusivo
-                </span>
-              </div>
-            </div>
-            {/* Camiseta secundaria superpuesta */}
-            <div className="absolute bottom-0 left-0 aspect-[4/5] w-[44%] overflow-hidden rounded-2xl border border-white/15 shadow-card ring-4 ring-carbon-950">
-              <Image
-                src="/images/guerrero-sport/hero/camiseta-secundaria.webp"
-                alt="Camiseta deportiva Paraguay personalizada"
-                fill
-                sizes="(max-width: 1024px) 40vw, 180px"
-                className="object-cover"
-              />
-            </div>
+          {/* Slider premium con camisetas reales */}
+          <div className="relative mx-auto w-full max-w-[360px] animate-float-slow">
+            <HeroSlider slides={HERO_SLIDES} />
           </div>
 
           {/* Tarjetas flotantes */}

@@ -18,10 +18,11 @@ for (const d of [HERO, DEST, CAT, GAL]) {
   fs.mkdirSync(d, { recursive: true });
 }
 
-// Hero (camisetas reales protagonistas) + destacado (recorte 4:5, alta calidad).
+// Hero slider (camisetas reales protagonistas) + destacado (recorte 4:5, alta calidad).
 const grandes = [
-  ["DSC_2924.JPG", "camiseta-principal", HERO, 920, 1150],
-  ["DSC_2658.JPG", "camiseta-secundaria", HERO, 760, 950],
+  ["DSC_2924.JPG", "slider-1-conjunto-rojo-negro", HERO, 920, 1150],
+  ["DSC_2658.JPG", "slider-2-paraguay", HERO, 920, 1150],
+  ["DSC_2782.JPG", "slider-3-sublimado-neon", HERO, 920, 1150],
   ["DSC_2674.JPG", "conjunto-guerrero", DEST, 1000, 1250],
 ];
 
