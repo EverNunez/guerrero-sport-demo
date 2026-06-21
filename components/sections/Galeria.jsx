@@ -21,6 +21,7 @@ export default function Galeria() {
       nombre: g.titulo,
       descripcion: g.tipo,
       etiqueta: g.tipo,
+      waMensaje: `Hola Guerrero Sport, me gustó este diseño: ${g.titulo}. Quiero algo similar para mi equipo.`,
     }));
   const [lightbox, setLightbox] = useState(null);
   const abrir = (g) => {

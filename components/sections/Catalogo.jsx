@@ -10,11 +10,23 @@ import { waLink } from "@/lib/site";
 import { useStore } from "@/lib/store";
 
 export default function Catalogo() {
-  const { productos } = useStore();
+  const { productos, categorias } = useStore();
   const visibles = productos.filter((p) => p.visible !== false);
+  const nombreCategoria = (slug) =>
+    categorias.find((c) => c.slug === slug)?.nombre || "";
 
   // Lightbox: navega sólo entre productos que tienen foto real.
   const conImagen = visibles.filter((p) => p.imagen);
+  const lightboxItems = conImagen.map((p) => ({
+    id: p.id,
+    imagen: p.imagen,
+    nombre: p.nombre,
+    descripcion: p.descripcion,
+    etiqueta: p.etiqueta,
+    categoria: nombreCategoria(p.categoria),
+    precio: p.precio,
+    waMensaje: `Hola Guerrero Sport, me interesa: ${p.nombre}. Quiero más información.`,
+  }));
   const [lightbox, setLightbox] = useState(null);
   const abrir = (p) => {
     const idx = conImagen.findIndex((x) => x.id === p.id);
@@ -126,7 +138,7 @@ export default function Catalogo() {
       </div>
 
       <Lightbox
-        items={conImagen}
+        items={lightboxItems}
         index={lightbox}
         onClose={() => setLightbox(null)}
         onIndex={setLightbox}

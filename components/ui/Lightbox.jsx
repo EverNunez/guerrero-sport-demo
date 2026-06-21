@@ -4,6 +4,7 @@ import { useCallback, useEffect } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { Icon } from "@/components/icons";
+import { waLink } from "@/lib/site";
 
 // Lightbox premium para ampliar imágenes del catálogo / galería.
 // - Fondo oscuro con blur, animación suave, imagen en alta calidad (object-contain).
@@ -113,19 +114,54 @@ export default function Lightbox({ items, index, onClose, onIndex }) {
             {/* Pie de foto */}
             {(item.nombre || item.descripcion) && (
               <div className="mt-4 max-w-xl text-center">
-                {item.etiqueta && (
-                  <span className="mb-2 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.05] px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white/70">
-                    {item.etiqueta}
-                  </span>
-                )}
+                {/* Etiqueta + categoría */}
+                <div className="mb-2 flex flex-wrap items-center justify-center gap-2">
+                  {item.etiqueta && (
+                    <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.05] px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white/70">
+                      {item.etiqueta}
+                    </span>
+                  )}
+                  {item.categoria && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-spartan/30 bg-spartan/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-spartan-400">
+                      <Icon name="tag" className="h-3.5 w-3.5" />
+                      {item.categoria}
+                    </span>
+                  )}
+                </div>
+
                 {item.nombre && (
-                  <h3 className="text-lg font-bold text-white">{item.nombre}</h3>
+                  <h3 className="text-xl font-bold text-white">{item.nombre}</h3>
                 )}
+
+                {item.precio && (
+                  <p className="mt-1.5 text-lg font-bold text-gold">{item.precio}</p>
+                )}
+
                 {item.descripcion && (
-                  <p className="mt-1 text-sm text-white/60">{item.descripcion}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-white/60">
+                    {item.descripcion}
+                  </p>
                 )}
+
+                {/* Botón WhatsApp para consultar por este producto */}
+                {item.nombre && (
+                  <a
+                    href={waLink(
+                      item.waMensaje ||
+                        `Hola Guerrero Sport, me interesa: ${item.nombre}. Quiero más información.`
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="btn-primary sheen mt-5 !py-3 !text-xs"
+                  >
+                    <Icon name="whatsapp" className="h-5 w-5" />
+                    Consultar por WhatsApp
+                  </a>
+                )}
+
                 {items.length > 1 && (
-                  <p className="mt-3 text-xs font-medium tracking-wider text-white/40">
+                  <p className="mt-4 text-xs font-medium tracking-wider text-white/40">
                     {index + 1} / {items.length}
                   </p>
                 )}
