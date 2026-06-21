@@ -169,6 +169,11 @@ export function Icon({ name, className = "h-6 w-6" }) {
         <path d="M18 4v5h-5M6 20v-5h5" />
       </>
     ),
+    expand: (
+      <>
+        <path d="M8 4H5a1 1 0 00-1 1v3M16 4h3a1 1 0 011 1v3M8 20H5a1 1 0 01-1-1v-3M16 20h3a1 1 0 001-1v-3" />
+      </>
+    ),
   };
 
   return (

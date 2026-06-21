@@ -79,7 +79,8 @@ async function gen(file, name, dir, opts) {
 }
 
 for (const [f, n, dir, w, h] of grandes) await gen(f, n, dir, { crop: true, w, h, q: 82 });
-for (const [f, n] of catalogo) await gen(f, n, CAT, { crop: true, w: 900, h: 1125, q: 80 });
+// Catálogo: SIN recorte (fit inside) para mostrar la prenda completa.
+for (const [f, n] of catalogo) await gen(f, n, CAT, { crop: false, w: 1000, h: 1400, q: 82 });
 for (const [f, n] of galeria) await gen(f, n, GAL, { crop: false, w: 1200, h: 1200, q: 80 });
 
 console.log(`\n${total} imágenes · ${(bytes / 1024 / 1024).toFixed(2)} MB`);

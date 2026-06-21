@@ -2,9 +2,9 @@ import Image from "next/image";
 import Jersey from "@/components/ui/Jersey";
 
 // Muestra una FOTO real si existe `imagen`; si no, cae al mockup SVG (Jersey).
-// Se posiciona de forma absoluta dentro del contenedor relativo padre:
-// - Foto: cubre todo el espacio (borde a borde, object-cover).
-// - Mockup: centrado con margen.
+// Se posiciona de forma absoluta dentro del contenedor relativo padre.
+// - fit="cover": cubre todo el espacio (puede recortar). Ideal para galería.
+// - fit="contain": muestra la prenda COMPLETA sin recortar. Ideal para catálogo.
 // Rutas normales (/images/...) usan next/image; imágenes subidas (data URL) usan <img>.
 export default function ProductMedia({
   imagen,
@@ -14,7 +14,10 @@ export default function ProductMedia({
   sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
   jerseyClassName = "",
   jerseyPadding = "p-6",
+  fit = "cover",
 }) {
+  const fitClass = fit === "contain" ? "object-contain" : "object-cover";
+
   if (imagen) {
     const esDataUrl = imagen.startsWith("data:");
     if (esDataUrl) {
@@ -23,7 +26,7 @@ export default function ProductMedia({
         <img
           src={imagen}
           alt={alt}
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className={`absolute inset-0 h-full w-full ${fitClass} transition-transform duration-700 group-hover:scale-105`}
         />
       );
     }
@@ -33,7 +36,7 @@ export default function ProductMedia({
         alt={alt}
         fill
         sizes={sizes}
-        className="object-cover transition-transform duration-700 group-hover:scale-105"
+        className={`${fitClass} transition-transform duration-700 group-hover:scale-105`}
       />
     );
   }
