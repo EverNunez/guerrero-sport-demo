@@ -21,8 +21,8 @@ export default function ProductMedia({
   if (imagen) {
     const esDataUrl = imagen.startsWith("data:");
     if (esDataUrl) {
-      // eslint-disable-next-line @next/next/no-img-element
       return (
+        // eslint-disable-next-line @next/next/no-img-element
         <img
           src={imagen}
           alt={alt}

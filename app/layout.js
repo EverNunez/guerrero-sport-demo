@@ -15,8 +15,13 @@ const inter = Inter({
   display: "swap",
 });
 
+// URL del sitio en producción. Configurable con NEXT_PUBLIC_SITE_URL
+// (ej. https://guerrerosport.com.py) para que OG, SEO y sitemap usen el dominio real.
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://guerrero-sport.vercel.app";
+
 export const metadata = {
-  metadataBase: new URL("https://guerrero-sport.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Guerrero Sport · Indumentaria deportiva personalizada",
     template: "%s · Guerrero Sport",
