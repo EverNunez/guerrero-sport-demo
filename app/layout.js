@@ -27,8 +27,12 @@ export const metadata = {
     template: "%s · Guerrero Sport",
   },
   description:
-    "Diseñamos y confeccionamos camisetas, uniformes y prendas deportivas con identidad propia para clubes, equipos, torneos y empresas. Presidente Franco, Barrio Santa Rosa.",
+    "Indumentaria deportiva personalizada para equipos, clubes, torneos y empresas en Presidente Franco, Paraguay.",
   applicationName: "Guerrero Sport",
+  // Verificación de propiedad para Google Search Console.
+  verification: {
+    google: "Z7PbyAYwtgbypdbsj9f3Ok4_YxSdW8opFlOmwxwiHY4",
+  },
   keywords: [
     "indumentaria deportiva",
     "camisetas personalizadas",
