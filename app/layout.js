@@ -18,7 +18,7 @@ const inter = Inter({
 // URL del sitio en producción. Configurable con NEXT_PUBLIC_SITE_URL
 // (ej. https://guerrerosport.com.py) para que OG, SEO y sitemap usen el dominio real.
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://guerrero-sport.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://guerrerosport.com.py";
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
