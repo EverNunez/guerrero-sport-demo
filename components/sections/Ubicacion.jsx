@@ -10,7 +10,7 @@ export default function Ubicacion() {
   const { contacto: CONTACTO } = useStore();
 
   return (
-    <section id="contacto" className="relative py-24 sm:py-28">
+    <section id="contacto" className="cv-section relative py-24 sm:py-28">
       <div className="container-px">
         <SectionHeading
           eyebrow="Visítanos"

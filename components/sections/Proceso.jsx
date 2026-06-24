@@ -7,7 +7,7 @@ import { PROCESO } from "@/lib/site";
 
 export default function Proceso() {
   return (
-    <section id="disenos" className="relative py-24 sm:py-28">
+    <section id="disenos" className="cv-section relative py-24 sm:py-28">
       <div className="container-px">
         <SectionHeading
           eyebrow="Cómo trabajamos"

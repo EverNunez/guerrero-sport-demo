@@ -1,14 +1,17 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 // Marca de agua premium "GUERRERO SPORT" animada en el fondo.
 // Movimiento muy suave, sin molestar la lectura. 100% decorativa.
+// Si el usuario pidió menos movimiento, queda estática (mismo aspecto, sin deriva).
 export default function BrandWatermark({
   className = "",
   word = "GUERRERO",
   word2 = "SPORT",
 }) {
+  const reduce = useReducedMotion();
+
   return (
     <div
       aria-hidden
@@ -17,11 +20,15 @@ export default function BrandWatermark({
       {/* Línea 1 — deriva lenta hacia la izquierda */}
       <motion.span
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1, x: [0, -28, 0] }}
-        transition={{
-          opacity: { duration: 1.2 },
-          x: { duration: 18, repeat: Infinity, ease: "easeInOut" },
-        }}
+        animate={reduce ? { opacity: 1 } : { opacity: 1, x: [0, -28, 0] }}
+        transition={
+          reduce
+            ? { opacity: { duration: 1.2 } }
+            : {
+                opacity: { duration: 1.2 },
+                x: { duration: 18, repeat: Infinity, ease: "easeInOut" },
+              }
+        }
         className="select-none whitespace-nowrap font-display font-bold uppercase leading-none tracking-tighter text-transparent"
         style={{
           fontSize: "clamp(5rem, 22vw, 20rem)",
@@ -34,11 +41,15 @@ export default function BrandWatermark({
       {/* Línea 2 — deriva opuesta, con leve degradado rojo */}
       <motion.span
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1, x: [0, 28, 0] }}
-        transition={{
-          opacity: { duration: 1.2, delay: 0.2 },
-          x: { duration: 22, repeat: Infinity, ease: "easeInOut" },
-        }}
+        animate={reduce ? { opacity: 1 } : { opacity: 1, x: [0, 28, 0] }}
+        transition={
+          reduce
+            ? { opacity: { duration: 1.2, delay: 0.2 } }
+            : {
+                opacity: { duration: 1.2, delay: 0.2 },
+                x: { duration: 22, repeat: Infinity, ease: "easeInOut" },
+              }
+        }
         className="-mt-[0.12em] select-none whitespace-nowrap bg-gradient-to-r from-spartan/[0.08] via-white/[0.05] to-spartan/[0.08] bg-clip-text font-display font-bold uppercase leading-none tracking-tighter text-transparent"
         style={{ fontSize: "clamp(5rem, 22vw, 20rem)" }}
       >

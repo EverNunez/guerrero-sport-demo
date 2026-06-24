@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import BrandWatermark from "@/components/ui/BrandWatermark";
 import HeroSlider from "@/components/ui/HeroSlider";
@@ -32,6 +32,7 @@ const stats = [
 ];
 
 export default function Hero() {
+  const reduce = useReducedMotion();
   return (
     <section
       id="inicio"
@@ -43,9 +44,9 @@ export default function Hero() {
         <div className="absolute inset-0 bg-radial-spotlight" />
         {/* Grilla de cancha en perspectiva */}
         <div className="absolute inset-x-0 bottom-0 h-[55%] bg-grid-lines bg-[size:46px_46px] [mask-image:linear-gradient(to_top,black,transparent)] opacity-60" />
-        {/* Halos de color */}
-        <div className="absolute -left-24 top-24 h-80 w-80 rounded-full bg-spartan/25 blur-[110px] animate-pulse-beam" />
-        <div className="absolute -right-24 top-40 h-96 w-96 rounded-full bg-royal/25 blur-[120px] animate-pulse-beam" />
+        {/* Halos de color (estáticos: sin repintado continuo, mejor en móvil) */}
+        <div className="absolute -left-24 top-24 h-80 w-80 rounded-full bg-spartan/25 blur-[110px]" />
+        <div className="absolute -right-24 top-40 h-96 w-96 rounded-full bg-royal/25 blur-[120px]" />
         <div className="absolute bottom-0 left-1/2 h-72 w-[60%] -translate-x-1/2 rounded-full bg-gold/10 blur-[120px]" />
         {/* Haces de luz de reflectores */}
         <div className="absolute left-1/4 top-0 h-[60%] w-40 -translate-x-1/2 rotate-[18deg] bg-gradient-to-b from-white/10 to-transparent blur-2xl" />
@@ -154,10 +155,10 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="relative mx-auto w-full max-w-[420px]"
         >
-          {/* Plataforma luminosa giratoria */}
+          {/* Plataforma luminosa giratoria (se detiene si el usuario pidió menos movimiento) */}
           <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+            animate={reduce ? undefined : { rotate: 360 }}
+            transition={reduce ? undefined : { duration: 40, repeat: Infinity, ease: "linear" }}
             className="absolute left-1/2 top-1/2 h-[115%] w-[115%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[conic-gradient(from_0deg,rgba(226,16,42,0.25),transparent_30%,rgba(30,91,255,0.18)_55%,transparent_75%,rgba(233,185,73,0.22))] blur-2xl"
           />
           {/* Slider premium con camisetas reales */}

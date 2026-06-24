@@ -5,7 +5,7 @@ import WhatsAppButton from "@/components/ui/WhatsAppButton";
 
 export default function CTA() {
   return (
-    <section className="relative py-12 sm:py-16">
+    <section className="cv-section relative py-12 sm:py-16">
       <div className="container-px">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

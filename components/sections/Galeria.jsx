@@ -30,7 +30,7 @@ export default function Galeria() {
   };
 
   return (
-    <section id="galeria" className="relative py-24 sm:py-28">
+    <section id="galeria" className="cv-section relative py-24 sm:py-28">
       <div className="container-px">
         <SectionHeading
           eyebrow="Nuestros trabajos"

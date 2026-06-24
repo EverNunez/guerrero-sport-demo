@@ -9,7 +9,7 @@ import Reveal from "@/components/ui/Reveal";
 
 export default function Equipos() {
   return (
-    <section className="relative py-24 sm:py-28">
+    <section className="cv-section relative py-24 sm:py-28">
       <div className="container-px">
         <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-carbon-800/50 p-8 sm:p-12 lg:p-14">
           {/* Fondo decorativo */}

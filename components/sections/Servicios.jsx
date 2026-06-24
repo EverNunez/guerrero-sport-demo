@@ -13,7 +13,7 @@ const ringColor = {
 
 export default function Servicios() {
   return (
-    <section id="servicios" className="relative py-24 sm:py-28">
+    <section id="servicios" className="cv-section relative py-24 sm:py-28">
       <div className="container-px">
         <SectionHeading
           eyebrow="Lo que hacemos"

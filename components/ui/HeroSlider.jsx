@@ -1,30 +1,46 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 // Slider premium automático para el Hero.
-// - Avance automático (pausa al pasar el mouse).
+// - Avance automático (pausa al pasar el mouse, al salir de pantalla y con reduced-motion).
 // - Transición suave con Framer Motion (crossfade + zoom sutil).
 // - Indicadores (dots) clickeables.
 export default function HeroSlider({ slides, interval = 4500 }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const reduce = useReducedMotion();
+  const ref = useRef(null);
+
+  // Sólo reproduce mientras el slider está en pantalla (ahorra batería/CPU en móvil).
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const obs = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { threshold: 0.15 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   useEffect(() => {
-    if (paused || slides.length <= 1) return;
+    if (paused || reduce || !visible || slides.length <= 1) return;
     const t = setInterval(
       () => setIndex((v) => (v + 1) % slides.length),
       interval
     );
     return () => clearInterval(t);
-  }, [paused, slides.length, interval]);
+  }, [paused, reduce, visible, slides.length, interval]);
 
   const slide = slides[index];
 
   return (
     <div
+      ref={ref}
       className="group relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] border border-white/15 shadow-card"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}

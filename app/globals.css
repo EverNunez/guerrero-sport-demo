@@ -105,6 +105,14 @@ body {
     -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
     mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
   }
+
+  /* Rendimiento: las secciones fuera de pantalla no se pintan/compositan
+     (clave en móvil para evitar jank y consumo de memoria GPU con los blur).
+     No altera el diseño; sólo difiere el render de lo no visible. */
+  .cv-section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 720px;
+  }
 }
 
 /* Scrollbar deportiva */

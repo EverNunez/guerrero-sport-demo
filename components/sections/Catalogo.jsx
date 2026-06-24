@@ -34,7 +34,7 @@ export default function Catalogo() {
   };
 
   return (
-    <section id="catalogo" className="relative py-24 sm:py-28">
+    <section id="catalogo" className="cv-section relative py-24 sm:py-28">
       {/* Fondo */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-grid-lines bg-[size:60px_60px] opacity-[0.35] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
