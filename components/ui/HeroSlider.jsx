@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 // Slider premium automático para el Hero.
 // - Avance automático (pausa al pasar el mouse, al salir de pantalla y con reduced-motion).
@@ -45,44 +45,42 @@ export default function HeroSlider({ slides, interval = 4500 }) {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <AnimatePresence initial={false}>
+      {/* Imágenes apiladas: crossfade por opacidad (sin montar/desmontar nodos) */}
+      {slides.map((s, i) => (
         <motion.div
-          key={slide.src}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 1 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0"
+          key={s.src}
+          aria-hidden={i !== index}
+          initial={false}
+          animate={{ opacity: i === index ? 1 : 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="pointer-events-none absolute inset-0"
         >
           <Image
-            src={slide.src}
-            alt={slide.alt}
+            src={s.src}
+            alt={s.alt}
             fill
-            priority={index === 0}
+            priority={i === 0}
             sizes="(max-width: 1024px) 80vw, 380px"
             className="object-cover"
           />
         </motion.div>
-      </AnimatePresence>
+      ))}
 
       {/* Degradado para contraste */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-carbon-950/80 via-transparent to-carbon-950/10" />
 
       {/* Etiqueta del slide */}
       <div className="absolute inset-x-0 top-0 p-4">
-        <AnimatePresence mode="wait">
-          <motion.span
-            key={slide.etiqueta}
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.4 }}
-            className="eyebrow !border-white/20 !bg-black/40"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-            {slide.etiqueta}
-          </motion.span>
-        </AnimatePresence>
+        <motion.span
+          key={slide.etiqueta}
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="eyebrow !border-white/20 !bg-black/40"
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+          {slide.etiqueta}
+        </motion.span>
       </div>
 
       {/* Indicadores */}

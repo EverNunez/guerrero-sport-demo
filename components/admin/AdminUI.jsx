@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Icon } from "@/components/icons";
 import { fileToDataURL } from "@/lib/store";
 
@@ -192,20 +192,19 @@ export function ImageInput({ value, onChange, label = "Imagen" }) {
 
 // ---------- Modal ----------
 export function Modal({ open, onClose, title, children, onSubmit, submitLabel = "Guardar" }) {
+  // Desmonta al cerrar (evita overlay invisible que bloquee clics en el panel).
+  if (!open) return null;
   return (
-    <AnimatePresence>
-      {open && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
           className="fixed inset-0 z-[60] flex items-start justify-center overflow-y-auto bg-black/70 p-4 backdrop-blur-sm sm:items-center"
           onClick={onClose}
         >
           <motion.div
             initial={{ opacity: 0, y: 24, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 24, scale: 0.98 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             onClick={(e) => e.stopPropagation()}
             className="my-8 w-full max-w-lg rounded-2xl border border-white/10 bg-carbon-800 shadow-card"
@@ -246,7 +245,5 @@ export function Modal({ open, onClose, title, children, onSubmit, submitLabel = 
             </form>
           </motion.div>
         </motion.div>
-      )}
-    </AnimatePresence>
   );
 }

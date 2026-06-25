@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Logo from "@/components/ui/Logo";
 import { Icon } from "@/components/icons";
 import { ADMIN_NAV } from "@/lib/admin";
@@ -159,21 +159,19 @@ export default function AdminShell({ children }) {
         </div>
       </div>
 
-      {/* Sidebar móvil */}
-      <AnimatePresence>
-        {open && (
+      {/* Sidebar móvil (desmonta al cerrar para no dejar overlay invisible) */}
+      {open && (
           <>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
               onClick={() => setOpen(false)}
               className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
             />
             <motion.aside
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
               transition={{ type: "spring", stiffness: 260, damping: 28 }}
               className="fixed inset-y-0 left-0 z-50 flex w-72 flex-col border-r border-white/10 bg-carbon-900 p-5 lg:hidden"
             >
@@ -207,8 +205,7 @@ export default function AdminShell({ children }) {
               </div>
             </motion.aside>
           </>
-        )}
-      </AnimatePresence>
+      )}
     </div>
   );
 }

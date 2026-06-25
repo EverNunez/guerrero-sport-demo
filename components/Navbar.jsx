@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Logo from "@/components/ui/Logo";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import { NAV_LINKS } from "@/lib/site";
@@ -90,13 +90,12 @@ export default function Navbar() {
         </nav>
       </div>
 
-      {/* Menu movil */}
-      <AnimatePresence>
-        {open && (
+      {/* Menu movil (desmonta al cerrar para no dejar overlay invisible) */}
+      {open && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             className="fixed inset-0 top-[72px] z-40 bg-carbon-950/95 backdrop-blur-xl lg:hidden"
           >
             <motion.ul
@@ -138,8 +137,7 @@ export default function Navbar() {
               </motion.li>
             </motion.ul>
           </motion.div>
-        )}
-      </AnimatePresence>
+      )}
     </header>
   );
 }

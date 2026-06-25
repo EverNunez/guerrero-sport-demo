@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Icon } from "@/components/icons";
 import { waLink } from "@/lib/site";
 
@@ -14,6 +15,11 @@ import { waLink } from "@/lib/site";
 export default function Lightbox({ items, index, onClose, onIndex }) {
   const open = index !== null && index >= 0;
   const item = open ? items[index] : null;
+
+  // Se monta en document.body (portal) para que `position: fixed` cubra toda la
+  // pantalla, sin quedar atrapado por contenedores (transform/content-visibility).
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const goPrev = useCallback(
     (e) => {
@@ -48,15 +54,16 @@ export default function Lightbox({ items, index, onClose, onIndex }) {
 
   const esDataUrl = item?.imagen?.startsWith("data:");
 
-  return (
-    <AnimatePresence>
-      {open && (
+  // Desmonta por completo al cerrar (evita overlay invisible que bloquee clics).
+  if (!mounted || !open) return null;
+
+  return createPortal(
         <motion.div
+          key="gs-lightbox"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-[80] flex items-center justify-center bg-carbon-950/90 p-4 backdrop-blur-xl sm:p-8"
+          transition={{ duration: 0.25 }}
+          className="fixed inset-0 z-[80] bg-carbon-950/95 backdrop-blur-md"
           onClick={onClose}
           role="dialog"
           aria-modal="true"
@@ -82,17 +89,23 @@ export default function Lightbox({ items, index, onClose, onIndex }) {
             </button>
           )}
 
-          {/* Contenido */}
-          <motion.div
-            key={item.imagen}
-            initial={{ opacity: 0, scale: 0.96, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.97 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            onClick={(e) => e.stopPropagation()}
-            className="relative flex max-h-full w-full max-w-3xl flex-col items-center"
+          {/* Capa con scroll: permite ver todo el contenido en pantallas chicas */}
+          <div
+            className="absolute inset-0 overflow-y-auto overscroll-contain"
+            onClick={onClose}
           >
-            <div className="relative h-[68vh] w-full">
+            <div className="flex min-h-full items-center justify-center px-4 py-16 sm:px-8 sm:py-20">
+              {/* Contenido */}
+              <motion.div
+                key={item.imagen}
+                initial={{ opacity: 0, scale: 0.96, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.97 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative flex w-full max-w-3xl flex-col items-center"
+              >
+                <div className="relative h-[52vh] w-full sm:h-[64vh]">
               {esDataUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -167,7 +180,9 @@ export default function Lightbox({ items, index, onClose, onIndex }) {
                 )}
               </div>
             )}
-          </motion.div>
+              </motion.div>
+            </div>
+          </div>
 
           {/* Flecha siguiente */}
           {items.length > 1 && (
@@ -179,8 +194,7 @@ export default function Lightbox({ items, index, onClose, onIndex }) {
               <Icon name="arrow" className="h-6 w-6" />
             </button>
           )}
-        </motion.div>
-      )}
-    </AnimatePresence>
+        </motion.div>,
+    document.body
   );
 }
