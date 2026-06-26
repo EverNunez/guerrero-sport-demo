@@ -2,13 +2,44 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { Icon } from "@/components/icons";
 import { waLink } from "@/lib/site";
 
+// Imagen del visor: <img> directo (sin optimizador) para carga 100% confiable,
+// centrada en cualquier resolución (max-h/max-w + object-contain), con spinner
+// mientras carga y mensaje si falla. Sirve tanto para rutas /public como data URL.
+function LightboxFigura({ src, alt }) {
+  const [estado, setEstado] = useState("cargando"); // cargando | listo | error
+  return (
+    <div className="relative flex min-h-[42vh] w-full items-center justify-center sm:min-h-[48vh]">
+      {estado !== "listo" && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          {estado === "cargando" ? (
+            <span className="h-9 w-9 animate-spin rounded-full border-2 border-white/20 border-t-spartan" />
+          ) : (
+            <span className="px-6 text-center text-sm text-white/50">
+              No se pudo cargar la imagen. Intentá de nuevo.
+            </span>
+          )}
+        </div>
+      )}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt={alt}
+        onLoad={() => setEstado("listo")}
+        onError={() => setEstado("error")}
+        className={`block h-auto max-h-[60vh] w-auto max-w-full rounded-xl object-contain drop-shadow-2xl transition-opacity duration-300 sm:max-h-[70vh] ${
+          estado === "listo" ? "opacity-100" : "opacity-0"
+        }`}
+      />
+    </div>
+  );
+}
+
 // Lightbox premium para ampliar imágenes del catálogo / galería.
-// - Fondo oscuro con blur, animación suave, imagen en alta calidad (object-contain).
+// - Fondo oscuro con blur, animación suave, imagen centrada (object-contain).
 // - Cierra con ESC, con clic fuera y con el botón X.
 // - Navegación con flechas (teclado y botones).
 // items: [{ imagen, nombre, descripcion, etiqueta }]
@@ -51,8 +82,6 @@ export default function Lightbox({ items, index, onClose, onIndex }) {
       document.body.style.overflow = "";
     };
   }, [open, onClose, goPrev, goNext]);
-
-  const esDataUrl = item?.imagen?.startsWith("data:");
 
   // Desmonta por completo al cerrar (evita overlay invisible que bloquee clics).
   if (!mounted || !open) return null;
@@ -100,29 +129,11 @@ export default function Lightbox({ items, index, onClose, onIndex }) {
                 key={item.imagen}
                 initial={{ opacity: 0, scale: 0.96, y: 10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.97 }}
                 transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                 onClick={(e) => e.stopPropagation()}
                 className="relative flex w-full max-w-3xl flex-col items-center"
               >
-                <div className="relative h-[52vh] w-full sm:h-[64vh]">
-              {esDataUrl ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={item.imagen}
-                  alt={item.nombre}
-                  className="absolute inset-0 h-full w-full object-contain drop-shadow-2xl"
-                />
-              ) : (
-                <Image
-                  src={item.imagen}
-                  alt={item.nombre}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 768px"
-                  className="object-contain drop-shadow-2xl"
-                />
-              )}
-            </div>
+                <LightboxFigura src={item.imagen} alt={item.nombre} />
 
             {/* Pie de foto */}
             {(item.nombre || item.descripcion) && (
